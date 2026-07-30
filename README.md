@@ -10,7 +10,7 @@ This project demonstrates two core LaunchDarkly capabilities:
 - **Feature Flags**: Toggle features on/off without redeployment
 - **Instant Updates**: Real-time flag changes with SDK listeners (no page reload required)
 - **Safe Rollback**: Quickly disable problematic features with zero downtime
-- 
+  
 ### Part 2: Target
 - **Individual Targeting**: Enable features for specific users
 - **Rule-Based Targeting**: Target users based on custom attributes (plan, company size, etc.)
