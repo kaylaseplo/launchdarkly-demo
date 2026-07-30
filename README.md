@@ -10,19 +10,17 @@ This project demonstrates two core LaunchDarkly capabilities:
 - **Feature Flags**: Toggle features on/off without redeployment
 - **Instant Updates**: Real-time flag changes with SDK listeners (no page reload required)
 - **Safe Rollback**: Quickly disable problematic features with zero downtime
-  
 ### Part 2: Target
 - **Individual Targeting**: Enable features for specific users
 - **Rule-Based Targeting**: Target users based on custom attributes (plan, company size, etc.)
 - **Real-World Scenarios**: Demonstrates targeting enterprise vs. freemium customers
-
 ## Quick Start
  
 ### Prerequisites
 - Node.js 16+ and npm
 - LaunchDarkly account (free trial at https://launchdarkly.com/start-trial/)
-
 ### Setup
+ 
 1. **Clone and install dependencies**
 ```bash
 git clone https://github.com/kaylaseplo/launchdarkly-demo.git
@@ -43,7 +41,6 @@ npm run dev
  
 5. **Open your browser**
    - Navigate to `http://localhost:1234`
-  
 ## How to Use
  
 ### Testing Part 1: Release & Remediate
@@ -53,7 +50,6 @@ npm run dev
 3. Go to LaunchDarkly dashboard → Flags → `new-checkout-flow`
 4. **Toggle the flag On/Off** — watch your app update instantly (no reload needed)
 5. This demonstrates safe feature releases and instant rollback
-   
 ### Testing Part 2: Target
  
 1. **Click "Test Enterprise Customer"** (plan: premium)
@@ -64,7 +60,6 @@ npm run dev
    - **Individual Target**: user-123 always gets `true`
    - **Rule 1**: if user plan is 'premium' → serve `true`
    - **Default Rule**: serve `false` to everyone else
-
 ## Feature Flag Configuration
  
 The `new-checkout-flow` flag is configured in LaunchDarkly with:
@@ -77,7 +72,20 @@ The `new-checkout-flow` flag is configured in LaunchDarkly with:
 - `plan` (free/premium) — determines feature access
 - `accountType` (Freemium/Enterprise) — for display
 - `companySize` (small/large) — example custom attribute
-
+## Screenshots
+ 
+**Flag Configuration in LaunchDarkly Dashboard**
+![Flag Configuration](screenshots/flag-config.png)
+- Shows individual targeting, rule-based targeting, and default fallback
+- 98 evaluations tracked in real-time
+**Enterprise Customer (Premium) - Feature ENABLED**
+![Enterprise User ENABLED](screenshots/enterprise-user.png)
+- Sarah Chen sees the new checkout flow
+- Matched by: Rule 1 (plan === 'premium')
+**Freemium Customer (Free) - Feature DISABLED**
+![Freemium User DISABLED](screenshots/freemium-user.png)
+- Alex Morgan sees the standard checkout flow
+- Falls through to default rule (false)
 ## Code Structure
  
 ```
@@ -85,7 +93,11 @@ launchdarkly-demo/
 ├── app.js              # Main LaunchDarkly SDK integration
 ├── index.html          # Simple UI with buttons to test scenarios
 ├── package.json        # Dependencies (LaunchDarkly SDK, Parcel)
-└── README.md          # This file
+├── README.md          # This file
+└── screenshots/       # Visual demonstrations
+    ├── flag-config.png
+    ├── enterprise-user.png
+    └── freemium-user.png
 ```
  
 ### Key Code: Flag Evaluation
@@ -117,20 +129,18 @@ To extend this project:
 - **Experimentation**: Create A/B tests with metrics
 - **AI Configs**: Manage LLM prompts and models via feature flags
 - **Integrations**: Connect to Slack, DataDog, or other services
-
 ## Notes
  
 - The SDK key shown is for demonstration only and has limited scope
 - This uses LaunchDarkly's free trial account
 - The app runs entirely client-side (no backend required)
 - Flag values are evaluated locally by the SDK for performance
-
 ## Resources
  
 - [LaunchDarkly Documentation](https://docs.launchdarkly.com/)
 - [JavaScript SDK Guide](https://docs.launchdarkly.com/sdk/client-side/javascript)
 - [Feature Flags Best Practices](https://launchdarkly.com/blog/)
-
 ## Contact
  
 Questions? Reach out to the LaunchDarkly team or check their support docs.
+ 
