@@ -54,7 +54,7 @@ npm install
      - Save your changes
    - Click **Review and save**
 4. **Update the SDK key in `app.js`**
-   - Replace `'6a6a6f71c0abbe0a98ecd74e'` with your actual Client-side ID (line 32)
+   - Replace `'6a6a6f71c0abbe0a98ecd74e'` with your actual Client-side ID
 5. **Start the dev server**
 ```bash
 npm run dev
