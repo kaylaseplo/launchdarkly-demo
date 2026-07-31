@@ -39,7 +39,7 @@ npm install
    - Open the flag's **Targeting** tab for your Test environment and turn **targeting ON**
    - Set up the individual target:
      - Under **individual targets**, find the row for the `true` variation
-     - In the **Context key** field, type `user-123`
+     - In the **Context key** field, type `indie-startup-user`
      - Set **Kind** to `user`, confirm **Variation** is `true`, and click **Add**
    - Add Rule 1:
      - Click the **+** button to add a new rule and choose **Build a custom rule**
@@ -75,18 +75,20 @@ npm run dev
  
 1. **Click "Test Enterprise Customer"** (plan: premium)
    - Should see: **ENABLED** (matches Rule 1: if plan === 'premium')
-2. **Click "Test Freemium Customer"** (plan: free)
-   - Should see: **DISABLED** (falls to default rule: false)
+2. **Click "Test Freemium Customer"** (plan: free, key: `indie-startup-user`)
+   - Should see: **ENABLED** — even though this user is on the free plan and would normally fall to the default rule (`false`), the individual target overrides it to `true`
+   - This demonstrates that individual targets take priority over rules and the default
 3. Go to LaunchDarkly dashboard to see how the targeting works:
-   - **Individual Target**: user-123 always gets `true`
+   - **Individual Target**: `indie-startup-user` always gets `true`, regardless of plan
    - **Rule 1**: if user plan is 'premium' → serve `true`
    - **Default Rule**: serve `false` to everyone else
+4. To see the default rule take effect instead, remove the individual target (or test with a different free-plan user key not listed as a target) — it should then fall through to **DISABLED**
 ## Feature Flag Configuration Reference
  
 The `new-checkout-flow` flag should be configured in LaunchDarkly with:
  
 **Targeting Rules:**
-- Individual target: `user-123` → `true` (always enabled for this user)
+- Individual target: `indie-startup-user` → `true` (always enabled for this user, overriding the default free-plan rule)
 - Rule 1: if `user.plan` is one of `'premium'` → `true`
 - Default rule: → `false`
 **Context Attributes Used:**
