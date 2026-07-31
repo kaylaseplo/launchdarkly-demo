@@ -36,11 +36,20 @@ npm install
 3. **Create the feature flag**
    - In your LaunchDarkly dashboard, go to **Flags** and create a new flag with the key: `new-checkout-flow`
    - Flag type: **Boolean**
-   - Set up targeting:
-     - **Individual target**: add `user-123` → serve `true`
-     - **Rule 1**: if `plan` is one of `premium` → serve `true`
-     - **Default rule**: serve `false`
-   - Turn **targeting ON** for this flag in your Test environment
+   - Open the flag's **Targeting** tab for your Test environment and turn **targeting ON**
+   - Set up the individual target:
+     - Under **individual targets**, find the row for the `true` variation
+     - In the **Context key** field, type `user-123`
+     - Set **Kind** to `user`, confirm **Variation** is `true`, and click **Add**
+   - Add Rule 1:
+     - Click the **+** button to add a new rule and choose **Build a custom rule**
+     - Set **Context kind** to `user`
+     - Set **Attribute** to `plan`
+     - Set **Operator** to `is one of`
+     - In **Values**, type `premium` and press enter to add it as a tag
+     - Set **Serve** to `true`
+   - Set the **default rule** (the fallback for everyone who doesn't match the above) to serve `false`
+   - Click **Review and save**
 4. **Update the SDK key in `app.js`**
    - Replace `'6a6a6f71c0abbe0a98ecd74e'` with your actual Client-side ID (line 32)
 5. **Start the dev server**
