@@ -72,19 +72,16 @@ The `new-checkout-flow` flag is configured in LaunchDarkly with:
 - `plan` (free/premium) — determines feature access
 - `accountType` (Freemium/Enterprise) — for display
 - `companySize` (small/large) — example custom attribute
-## Screenshots
+## Visual Demonstrations
  
 **Flag Configuration in LaunchDarkly Dashboard**
-![Flag Configuration](screenshots/flag-config.png)
 - Shows individual targeting, rule-based targeting, and default fallback
 - 98 evaluations tracked in real-time
 **Enterprise Customer (Premium) - Feature ENABLED**
-![Enterprise User ENABLED](screenshots/enterprise-user.png)
-- Sarah Chen sees the new checkout flow
+- Sarah Chen sees the new checkout flow with premium styling, progress indicators, and Google Pay integration
 - Matched by: Rule 1 (plan === 'premium')
 **Freemium Customer (Free) - Feature DISABLED**
-![Freemium User DISABLED](screenshots/freemium-user.png)
-- Alex Morgan sees the standard checkout flow
+- Alex Morgan sees the standard checkout flow with minimal styling and basic card form
 - Falls through to default rule (false)
 ## Code Structure
  
@@ -93,11 +90,8 @@ launchdarkly-demo/
 ├── app.js              # Main LaunchDarkly SDK integration
 ├── index.html          # Simple UI with buttons to test scenarios
 ├── package.json        # Dependencies (LaunchDarkly SDK, Parcel)
-├── README.md          # This file
-└── screenshots/       # Visual demonstrations
-    ├── flag-config.png
-    ├── enterprise-user.png
-    └── freemium-user.png
+├── README.md           # This file
+└── TALK_TRACK.md       # Presentation script and talking points
 ```
  
 ### Key Code: Flag Evaluation
@@ -123,52 +117,10 @@ client.on('change:new-checkout-flow', () => {
 ✅ **Real-time listeners**: Updates without page reloads  
 ✅ **Production-ready patterns**: Context attributes, flag evaluation, error handling
  
-## Experimentation (Extra Credit)
-
-This project includes a live A/B test measuring whether the new checkout flow actually improves conversions.
-
-### Experiment Setup
-
-- **Experiment**: `checkout_redesign_conversion_test`
-- **Flag**: `new-checkout-flow` — assigns users to the control (standard checkout) or treatment (new multi-step checkout)
-- **Metric**: `checkout_completed` — a custom conversion event fired when a user clicks **Complete Purchase**
-
-**Experiment Configuration in LaunchDarkly**
-![Experiment Setup](screenshots/experiment-setup.png)
-
-### Hypothesis
-
-> Users who see the new multi-step checkout (with saved payment methods and a progress indicator) will complete purchases at a higher rate than users on the standard single-form checkout.
-
-### How Tracking Works
-
-When a user clicks **Complete Purchase**, the app fires the conversion event with `client.track()`:
-
-```javascript
-client.track('checkout_completed', {
-  name: context.name,
-  plan: context.plan,
-  accountType: context.accountType
-});
-client.flush();
-```
-
-LaunchDarkly automatically ties each event to the flag variation the user was served, so no manual bucketing is needed. Conversions are also logged to the browser console for easy verification during the demo.
-
-### Interpreting Results
-
-In the LaunchDarkly dashboard (Experiments → `checkout_redesign_conversion_test`):
-
-1. **Conversion rate per variation** — the percentage of users in each variation who fired `checkout_completed`
-2. **Relative difference** — how much the treatment out- (or under-) performs the control
-3. **Probability to beat control** — LaunchDarkly's Bayesian statistics; a probability above ~90% is strong evidence the new checkout is better
-4. **Credible interval** — the plausible range of the true effect; a narrower interval means more certainty
-
-If the new checkout wins, roll it out to 100% by updating the flag — no redeploy needed. If it regresses, roll it back the same way. That's the core value: **experimentation and rollback share the same switch**.
-
-## Next Steps
-
-To extend this project further:
+## Next Steps (Extra Credit)
+ 
+To extend this project:
+- **Experimentation**: Create A/B tests with metrics
 - **AI Configs**: Manage LLM prompts and models via feature flags
 - **Integrations**: Connect to Slack, DataDog, or other services
 ## Notes
@@ -185,4 +137,3 @@ To extend this project further:
 ## Contact
  
 Questions? Reach out to the LaunchDarkly team or check their support docs.
- 
