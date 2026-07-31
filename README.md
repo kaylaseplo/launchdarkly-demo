@@ -17,7 +17,7 @@ This project demonstrates two core LaunchDarkly capabilities:
 ## Quick Start
  
 ### Prerequisites
-- Node.js 16+ and npm
+- Node.js 22+ and npm 10+ (this project's dependencies require Node `^22.22.2`, `^24.15.0`, or `>=26.0.0`)
 - LaunchDarkly account (free trial at https://launchdarkly.com/start-trial/)
 ### Setup
  
@@ -30,16 +30,25 @@ npm install
  
 2. **Get your LaunchDarkly SDK key**
    - Log in to your LaunchDarkly account
-   - Go to Settings → Environments → SDK keys
-   - Copy your **Client-side ID** for the Test environment
-3. **Update the SDK key in `app.js`**
+   - Go to Settings → SDK keys
+   - Choose your project and the **Test** environment
+   - Copy your **Client-side ID** under "Client-side IDs"
+3. **Create the feature flag**
+   - In your LaunchDarkly dashboard, go to **Flags** and create a new flag with the key: `new-checkout-flow`
+   - Flag type: **Boolean**
+   - Set up targeting:
+     - **Individual target**: add `user-123` → serve `true`
+     - **Rule 1**: if `plan` is one of `premium` → serve `true`
+     - **Default rule**: serve `false`
+   - Turn **targeting ON** for this flag in your Test environment
+4. **Update the SDK key in `app.js`**
    - Replace `'6a6a6f71c0abbe0a98ecd74e'` with your actual Client-side ID (line 32)
-4. **Start the dev server**
+5. **Start the dev server**
 ```bash
 npm run dev
 ```
  
-5. **Open your browser**
+6. **Open your browser**
    - Navigate to `http://localhost:1234`
 ## How to Use
  
@@ -60,9 +69,9 @@ npm run dev
    - **Individual Target**: user-123 always gets `true`
    - **Rule 1**: if user plan is 'premium' → serve `true`
    - **Default Rule**: serve `false` to everyone else
-## Feature Flag Configuration
+## Feature Flag Configuration Reference
  
-The `new-checkout-flow` flag is configured in LaunchDarkly with:
+The `new-checkout-flow` flag should be configured in LaunchDarkly with:
  
 **Targeting Rules:**
 - Individual target: `user-123` → `true` (always enabled for this user)
@@ -130,7 +139,7 @@ To extend this project:
 - **Integrations**: Connect to Slack, DataDog, or other services
 ## Notes
  
-- The SDK key shown is for demonstration only and has limited scope
+- The SDK key shown is a placeholder — replace it with your own Client-side ID before running the app
 - This uses LaunchDarkly's free trial account
 - The app runs entirely client-side (no backend required)
 - Flag values are evaluated locally by the SDK for performance
