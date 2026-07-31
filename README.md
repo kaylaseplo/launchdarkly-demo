@@ -72,17 +72,22 @@ The `new-checkout-flow` flag is configured in LaunchDarkly with:
 - `plan` (free/premium) — determines feature access
 - `accountType` (Freemium/Enterprise) — for display
 - `companySize` (small/large) — example custom attribute
-## Visual Demonstrations
+## Screenshots
  
 **Flag Configuration in LaunchDarkly Dashboard**
+![Flag Configuration](screenshots/flag-config.png)
 - Shows individual targeting, rule-based targeting, and default fallback
-- 98 evaluations tracked in real-time
 **Enterprise Customer (Premium) - Feature ENABLED**
+![Premium Checkout](screenshots/premium-checkout.png)
 - Sarah Chen sees the new checkout flow with premium styling, progress indicators, and Google Pay integration
 - Matched by: Rule 1 (plan === 'premium')
 **Freemium Customer (Free) - Feature DISABLED**
+![Standard Checkout](screenshots/standard-checkout.png)
 - Alex Morgan sees the standard checkout flow with minimal styling and basic card form
 - Falls through to default rule (false)
+**Experimentation Setup**
+![Experiment Setup](screenshots/experiment-setup.png)
+- A/B test configuration with 90/10 treatment/control split for premium users
 ## Code Structure
  
 ```
