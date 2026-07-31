@@ -48,7 +48,10 @@ npm install
      - Set **Operator** to `is one of`
      - In **Values**, type `premium` and press enter to add it as a tag
      - Set **Serve** to `true`
-   - Set the **default rule** (the fallback for everyone who doesn't match the above) to serve `false`
+   - Set the default rule (the fallback for everyone who doesn't match the above):
+     - Find the **Default rule** row and click **Edit**
+     - Set **Serve** to `false`
+     - Save your changes
    - Click **Review and save**
 4. **Update the SDK key in `app.js`**
    - Replace `'6a6a6f71c0abbe0a98ecd74e'` with your actual Client-side ID (line 32)
